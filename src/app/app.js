@@ -22,6 +22,8 @@ angular.module( 'ngBoilerplate', [
         }
     });
 
+    $scope.selectedUser = 'stroem';
+
     // List users
     $scope.isLoggedIn = false;
     $scope.mine = {};

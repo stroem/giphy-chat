@@ -12,6 +12,8 @@
         <!--Placeholder for chat-->
         <chat></chat>
 
-        {{ mine.messages }}
+        <div ng-repeat="message in mine.messages">
+            <img ng-src="{{ message.url }}" />
+        </div>
     </span>
 </div>

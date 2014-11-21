@@ -21,14 +21,23 @@
   <body>
       <input ng-model="q" /> <button ng-click="search(q)">Search</button>
 
+
+
+<br>
+      <span ng-repeat="(nickname, data) in users">
+          <button ng-click="$parent.selectedUser = nickname" ng-class="{
+              'selected': selectedUser === nickname,
+              'delected': selectedUser !== nickname
+              }">
+              {{ nickname }}
+          </button>
+      </span>
+
     <br>
       <img ng-src="{{ result.image_original_url }}">
       <div ng-repeat="pic in result">
-          <img ng-src="{{ pic.images.fixed_height_still.url }}">
+          <img ng-src="{{ pic.images.fixed_height_still.url }}" ng-click="sendMessage(selectedUser, pic.images.fixed_height)">
       </div>
-
-      {{ users }}
-
     <br>
     <input ng-model="username" /> <button ng-click="addUser(username)">Login</button>
 
