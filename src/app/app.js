@@ -1,31 +1,70 @@
 angular.module( 'ngBoilerplate', [
-  'templates-app',
-  'templates-common',
-  'ngBoilerplate.home',
-  'ngBoilerplate.about',
-  'ui.router'
+    'templates-app',
+    'templates-common',
+    'ngBoilerplate.home',
+    'ngBoilerplate.about',
+    'ui.router',
+    'firebase'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
-  $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/home');
 })
 
 .run( function run () {
+    // THSI IS EMPTY
 })
 
-.controller('AppCtrl', function AppCtrl($scope, $giphy) {
+.controller('AppCtrl', function AppCtrl($scope, $giphy, $users, $firebase) {
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
         if(angular.isDefined( toState.data.pageTitle)) {
             $scope.pageTitle = toState.data.pageTitle + ' | giphyChat' ;
         }
     });
 
+    $scope.addUser = $users.add;
+
+    // List users
+    var ref = new Firebase("https://giphychat.firebaseio.com/");
+    var sync = $firebase(ref);
+    $scope.users = sync.$asObject();
+
+    var ref2 = new Firebase("https://giphychat.firebaseio.com/stroem");
+    var sync2 = $firebase(ref2);
+    $scope.mine = sync2.$asObject();
+
+    // Search
     $scope.result = [];
     $scope.search = function(q) {
         $giphy.search(q).then(function(data) {
             $scope.result = data;
         });
     };
+})
+
+.service('$users', function($firebase) {
+    var ref = new Firebase("https://giphychat.firebaseio.com/");
+    var child = ref.child('users');
+
+    return {
+        add: function(nickname) {
+            var data = {};
+            data[nickname] = {
+                messages: [],
+                awesome: true
+            };
+
+            child.update(data);
+        },
+
+        send: function(nickname, message) {
+
+        },
+
+        user: function(nickname) {
+            
+        }
+    }
 })
 
 .service('$giphy', function($q, $http) {
@@ -49,7 +88,7 @@ angular.module( 'ngBoilerplate', [
         search: function(searchTerm, limit, offset, rating) {
             var params = {
                 q: searchTerm,
-                limit: limit || 100,
+                limit: limit || 10,
                 offset: offset || 0,
                 rating: rating // Can be: y, g, pg, pg-13, r
             };

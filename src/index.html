@@ -14,15 +14,23 @@
 
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
+
+        <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
   </head>
   <body>
-      <input ng-model="q"> <button ng-click="search(q)">Search</button>
+      <input ng-model="q" /> <button ng-click="search(q)">Search</button>
 
+    <br>
       <img ng-src="{{ result.image_original_url }}">
       <div ng-repeat="pic in result">
           <img ng-src="{{ pic.images.fixed_height_still.url }}">
-
       </div>
+
+      {{ users }}
+
+    <br>
+      <input ng-model="username" /> <button ng-click="addUser(username)">Login</button>
 
     <div class="container">
       <div class="navbar navbar-default">
