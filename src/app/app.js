@@ -22,7 +22,12 @@ angular.module( 'ngBoilerplate', [
         }
     });
 
-    $scope.addUser = $users.add;
+    $scope.loggedIn = false
+
+    $scope.addUser = function (username) {
+        $users.add(username);
+        $scope.loggedIn = true;
+    }
 
     // List users
     var ref = new Firebase("https://giphychat.firebaseio.com/");
@@ -62,7 +67,7 @@ angular.module( 'ngBoilerplate', [
         },
 
         user: function(nickname) {
-            
+
         }
     }
 })

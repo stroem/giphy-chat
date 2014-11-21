@@ -1,8 +1,15 @@
 <div class="jumbotron">
-  <h1>Giphy Chat</h1>
+    <span ng-if="loggedIn==false">
+        <h1>Giphy Chat</h1>
 
-  <p class="lead">
-    Everything you need to chat.
-  </p>
-
+        <p class="lead">
+        Everything you need to chat.
+        </p>
+    
+        <input ng-model="username" /> <button ng-click="addUser(username)">Login</button>
+    </span>
+    <span ng-if="loggedIn">
+        <!--Placeholder for chat-->
+        <chat></chat>
+    </span>
 </div>
