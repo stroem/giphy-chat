@@ -22,21 +22,17 @@ angular.module( 'ngBoilerplate', [
         }
     });
 
-    $scope.loggedIn = false
-
-    $scope.addUser = function (username) {
-        $users.add(username);
-        $scope.loggedIn = true;
-    }
-
     // List users
-    var ref = new Firebase("https://giphychat.firebaseio.com/");
-    var sync = $firebase(ref);
-    $scope.users = sync.$asObject();
+    $scope.isLoggedIn = false;
+    $scope.mine = {};
+    $scope.users = $users.getUsersRef().$asObject();
+    $scope.sendMessage = $users.send;
 
-    var ref2 = new Firebase("https://giphychat.firebaseio.com/stroem");
-    var sync2 = $firebase(ref2);
-    $scope.mine = sync2.$asObject();
+    $scope.addUser = function(username) {
+        $users.add(username);
+        $scope.mine = $users.getUserRef().$asObject();
+        $scope.isLoggedIn = true;
+    };
 
     // Search
     $scope.result = [];
@@ -48,26 +44,31 @@ angular.module( 'ngBoilerplate', [
 })
 
 .service('$users', function($firebase) {
-    var ref = new Firebase("https://giphychat.firebaseio.com/");
-    var child = ref.child('users');
+    var ref = new Firebase("https://giphychat.firebaseio.com/users");
+    var addedUser = undefined;
 
     return {
         add: function(nickname) {
             var data = {};
             data[nickname] = {
-                messages: [],
                 awesome: true
             };
 
-            child.update(data);
+            ref.update(data);
+            addedUser = nickname;
         },
 
         send: function(nickname, message) {
-
+            var messagesRef = ref.child(nickname).child('messages');
+            messagesRef.push(message);
         },
 
-        user: function(nickname) {
+        getUserRef: function(nickname) {
+            return $firebase(ref.child(nickname || addedUser));
+        },
 
+        getUsersRef: function() {
+            return $firebase(ref);
         }
     }
 })

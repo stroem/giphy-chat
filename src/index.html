@@ -27,10 +27,13 @@
           <img ng-src="{{ pic.images.fixed_height_still.url }}">
       </div>
 
-      {{ users }}
+    <br>
+    <input ng-model="username" /> <button ng-click="addUser(username)">Login</button>
 
     <br>
-      <input ng-model="username" /> <button ng-click="addUser(username)">Login</button>
+    <br>Send messages to + message:
+    <br>
+    <input ng-model="to" /> <input ng-model="message" /> <button ng-click="sendMessage(to, message)">Send</button>
 
     <div class="container">
       <div class="navbar navbar-default">
