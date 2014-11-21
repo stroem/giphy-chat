@@ -8,24 +8,11 @@
     <input ng-model="username" /> <button ng-click="addUser(username)">Login</button>
 </div>
 <div class="row chat-wrapper" ng-if="isLoggedIn()">
-    <div class="col-3-4 chat">
-        <div ng-repeat="(id, message) in mine.messages">
-            From: {{ message.from }}
-            <br>Message: {{ message.data }}
-            <br><a ng-click="deleteMessage(id)">Delete message</a>
-            <br><div class="giphy-image-large" style="background-image: url('{{ message.image.url }}')">
-            </div>
-        </div>
-    </div>
-    <div class="col-1-4 users">
-            <button class="user"
-                    ng-repeat="(nickname, data) in users"
-                    ng-click="$parent.selectedUser = nickname"
-                    ng-class="{
-                        'selected': selectedUser === nickname
-                    }">
-            {{ nickname }}
-            </button>
+    <div ng-repeat="(id, message) in mine.messages">
+        From: {{ message.from }}
+        <br>Message: {{ message.data }}
+        <br><a ng-click="deleteMessage(id)">Delete message</a>
+        <br><div class="giphy-image-large" style="background-image: url('{{ message.image.url }}')">
         </div>
     </div>
 </div>

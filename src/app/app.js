@@ -2,6 +2,7 @@ angular.module( 'ngBoilerplate', [
     'templates-app',
     'templates-common',
     'ngBoilerplate.home',
+    'ngBoilerplate.send',
     'ngBoilerplate.about',
     'ui.router',
     'firebase',
