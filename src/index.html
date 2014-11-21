@@ -21,21 +21,8 @@
   </head>
   <body>
       <input ng-model="q" /> <button ng-click="search(q)">Search</button>
-
-
-
-<br>
-      <span ng-repeat="(nickname, data) in users">
-          <button ng-click="$parent.selectedUser = nickname" ng-class="{
-              'selected': selectedUser === nickname,
-              'delected': selectedUser !== nickname
-              }">
-              {{ nickname }}
-          </button>
-      </span>
-      <br> Message:
-      <input ng-model="message" />
-
+    <br>
+    <input ng-model="message" />
     <br>
       <img ng-src="{{ result.image_original_url }}">
       <div ng-repeat="pic in result">
