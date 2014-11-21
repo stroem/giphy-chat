@@ -13,7 +13,8 @@
             From: {{ message.from }}
             <br>Message: {{ message.data }}
             <br><a ng-click="deleteMessage(id)">Delete message</a>
-            <br><img ng-src="{{ message.image.url }}" />
+            <br><div class="giphy-image-large" style="background-image: url('{{ message.image.url }}')">
+            </div>
         </div>
     </div>
     <div class="col-1-4 users">

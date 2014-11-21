@@ -25,9 +25,10 @@
     <input ng-model="message" />
     <br>
       <img ng-src="{{ result.image_original_url }}">
-      <div ng-repeat="pic in result">
-          <img ng-src="{{ pic.images.fixed_height_still.url }}" ng-click="sendMessage(selectedUser, pic.images.fixed_height, message)">
-      </div>
+      <span ng-repeat="pic in result" class="giphy-image" style="background-image: url('{{ pic.images.fixed_height_still.url }}')"
+               ng-click="sendMessage(selectedUser, pic.images.fixed_height, message)">
+          
+      </span>
 
     <div class="container">
       <div class="navbar navbar-default">
