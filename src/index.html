@@ -33,19 +33,14 @@
               {{ nickname }}
           </button>
       </span>
+      <br> Message:
+      <input ng-model="message" />
 
     <br>
       <img ng-src="{{ result.image_original_url }}">
       <div ng-repeat="pic in result">
-          <img ng-src="{{ pic.images.fixed_height_still.url }}" ng-click="sendMessage(selectedUser, pic.images.fixed_height)">
+          <img ng-src="{{ pic.images.fixed_height_still.url }}" ng-click="sendMessage(selectedUser, pic.images.fixed_height, message)">
       </div>
-    <br>
-    <input ng-model="username" /> <button ng-click="addUser(username)">Login</button>
-
-    <br>
-    <br>Send messages to + message:
-    <br>
-    <input ng-model="to" /> <input ng-model="message" /> <button ng-click="sendMessage(to, message)">Send</button>
 
     <div class="container">
       <div class="navbar navbar-default">

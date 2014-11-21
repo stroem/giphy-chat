@@ -13,7 +13,9 @@
         <chat></chat>
 
         <div ng-repeat="message in mine.messages">
-            <img ng-src="{{ message.url }}" />
+            From: {{ message.from }}
+            <br>Message: {{ message.data }}
+            <br><img ng-src="{{ message.image.url }}" />
         </div>
     </span>
 </div>

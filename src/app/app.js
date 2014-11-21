@@ -68,9 +68,16 @@ angular.module( 'ngBoilerplate', [
             ref.child(nickname).update(data);
         },
 
-        send: function(nickname, message) {
+        send: function(nickname, image, data) {
+            if(!service.isLoggedIn())
+                return;
+
             var messagesRef = ref.child(nickname).child('messages');
-            messagesRef.push(message);
+            messagesRef.push({
+                'from': signedInUser,
+                'image': image,
+                'data': data
+            });
         },
 
         getUserRef: function(nickname) {
