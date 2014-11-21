@@ -4,7 +4,8 @@ angular.module( 'ngBoilerplate', [
     'ngBoilerplate.home',
     'ngBoilerplate.about',
     'ui.router',
-    'firebase'
+    'firebase',
+    'LocalStorageModule'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
@@ -25,15 +26,14 @@ angular.module( 'ngBoilerplate', [
     $scope.selectedUser = 'stroem';
 
     // List users
-    $scope.isLoggedIn = false;
-    $scope.mine = {};
+    $scope.isLoggedIn = $users.isLoggedIn;
+    $scope.mine = $users.getUserRef().$asObject();
     $scope.users = $users.getUsersRef().$asObject();
     $scope.sendMessage = $users.send;
 
     $scope.addUser = function(username) {
-        $users.add(username);
+        $users.login(username);
         $scope.mine = $users.getUserRef().$asObject();
-        $scope.isLoggedIn = true;
     };
 
     // Search
@@ -45,18 +45,27 @@ angular.module( 'ngBoilerplate', [
     };
 })
 
-.service('$users', function($firebase) {
+.service('$users', function($firebase, localStorageService) {
     var ref = new Firebase("https://giphychat.firebaseio.com/users");
-    var addedUser = undefined;
+    var signedInUser = localStorageService.get('user');
 
-    return {
+    var service = {
+        isLoggedIn: function() {
+            return signedInUser != undefined;
+        },
+
+        login: function(nickname) {
+            localStorageService.set('user', nickname);
+            signedInUser = nickname;
+            service.add(nickname);
+        },
+
         add: function(nickname) {
             var data = {
                 awesome: true
             };
 
             ref.child(nickname).update(data);
-            addedUser = nickname;
         },
 
         send: function(nickname, message) {
@@ -65,13 +74,22 @@ angular.module( 'ngBoilerplate', [
         },
 
         getUserRef: function(nickname) {
-            return $firebase(ref.child(nickname || addedUser));
+            if(!nickname && !signedInUser) {
+                return {
+                    '$asObject': function() {},
+                    '$asArray': function() {}
+                };
+            }
+
+            return $firebase(ref.child(nickname || signedInUser));
         },
 
         getUsersRef: function() {
             return $firebase(ref);
         }
-    }
+    };
+
+    return service;
 })
 
 .service('$giphy', function($q, $http) {

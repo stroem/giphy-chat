@@ -15,8 +15,9 @@
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
 
-        <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
-        <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
+    <script src="../vendor/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
   </head>
   <body>
       <input ng-model="q" /> <button ng-click="search(q)">Search</button>
