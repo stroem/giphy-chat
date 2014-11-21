@@ -75,9 +75,9 @@ angular.module( 'ngBoilerplate', [
 
             var messagesRef = ref.child(nickname).child('messages');
             messagesRef.push({
-                'from': signedInUser,
-                'image': image,
-                'data': data
+                'from': signedInUser || '',
+                'image': image || '',
+                'data': data || ''
             });
         },
 

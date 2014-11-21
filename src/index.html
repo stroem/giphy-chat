@@ -21,13 +21,13 @@
   </head>
   <body>
       <input ng-model="q" /> <button ng-click="search(q)">Search</button>
-    <br>
+    <br> {{ selectedUser }}
     <input ng-model="message" />
     <br>
       <img ng-src="{{ result.image_original_url }}">
       <span ng-repeat="pic in result" class="giphy-image" style="background-image: url('{{ pic.images.fixed_height_still.url }}')"
                ng-click="sendMessage(selectedUser, pic.images.fixed_height, message)">
-          
+
       </span>
 
     <div class="container">
