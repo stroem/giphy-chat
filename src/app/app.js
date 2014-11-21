@@ -49,12 +49,11 @@ angular.module( 'ngBoilerplate', [
 
     return {
         add: function(nickname) {
-            var data = {};
-            data[nickname] = {
+            var data = {
                 awesome: true
             };
 
-            ref.update(data);
+            ref.child(nickname).update(data);
             addedUser = nickname;
         },
 
