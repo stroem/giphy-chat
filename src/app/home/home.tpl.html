@@ -12,9 +12,10 @@
         <!--Placeholder for chat-->
         <chat></chat>
 
-        <div ng-repeat="message in mine.messages">
+        <div ng-repeat="(id, message) in mine.messages">
             From: {{ message.from }}
             <br>Message: {{ message.data }}
+            <br><a ng-click="deleteMessage(id)">Delete message</a>
             <br><img ng-src="{{ message.image.url }}" />
         </div>
     </span>

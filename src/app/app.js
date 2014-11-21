@@ -30,6 +30,7 @@ angular.module( 'ngBoilerplate', [
     $scope.mine = $users.getUserRef().$asObject();
     $scope.users = $users.getUsersRef().$asObject();
     $scope.sendMessage = $users.send;
+    $scope.deleteMessage = $users.deleteMessage;
 
     $scope.addUser = function(username) {
         $users.login(username);
@@ -93,6 +94,13 @@ angular.module( 'ngBoilerplate', [
 
         getUsersRef: function() {
             return $firebase(ref);
+        },
+
+        deleteMessage: function(id) {
+            if(!service.isLoggedIn() || !id)
+                return;
+
+            ref.child(signedInUser).child('messages').child(id).remove();
         }
     };
 
