@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="ngBoilerplate" ng-controller="AppCtrl">
-  <head>
+<head>
     <title ng-bind="pageTitle"></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,9 +13,16 @@
 
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
-
   </head>
   <body>
+      <input ng-model="q"> <button ng-click="search(q)">Search</button>
+
+      <img ng-src="{{ result.image_original_url }}">
+      <div ng-repeat="pic in result">
+          <img ng-src="{{ pic.images.fixed_height_still.url }}">
+
+      </div>
+      
     <div class="container">
       <div class="navbar navbar-default">
         <div class="navbar-header">
@@ -65,6 +72,5 @@
           </p>
         </div>
       </div>
-    </footer>
-  </body>
+    </body>
 </html>

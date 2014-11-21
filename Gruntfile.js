@@ -6,7 +6,6 @@ module.exports = function ( grunt ) {
    */
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -259,36 +258,6 @@ module.exports = function ( grunt ) {
     },
 
     /**
-     * `jshint` defines the rules of our linter as well as which files we
-     * should check. This file, all javascript sources, and all our unit tests
-     * are linted based on the policies listed in `options`. But we can also
-     * specify exclusionary patterns by prefixing them with an exclamation
-     * point (!); this is useful when code comes from a third party but is
-     * nonetheless inside `src/`.
-     */
-    jshint: {
-      src: [ 
-        '<%= app_files.js %>'
-      ],
-      test: [
-        '<%= app_files.jsunit %>'
-      ],
-      gruntfile: [
-        'Gruntfile.js'
-      ],
-      options: {
-        curly: true,
-        immed: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        boss: true,
-        eqnull: true
-      },
-      globals: {}
-    },
-
-    /**
      * `coffeelint` does the same as `jshint`, but for CoffeeScript.
      * CoffeeScript is not the default in ngBoilerplate, so we're just using
      * the defaults here.
@@ -402,7 +371,7 @@ module.exports = function ( grunt ) {
        */
       gruntfile: {
         files: 'Gruntfile.js',
-        tasks: [ 'jshint:gruntfile' ],
+        tasks: [ ],
         options: {
           livereload: false
         }
@@ -416,7 +385,7 @@ module.exports = function ( grunt ) {
         files: [ 
           '<%= app_files.js %>'
         ],
-        tasks: [ 'jshint:src', 'copy:build_appjs' ]
+        tasks: [ 'copy:build_appjs' ]
       },
 
       /**
@@ -476,7 +445,7 @@ module.exports = function ( grunt ) {
         files: [
           '<%= app_files.jsunit %>'
         ],
-        tasks: [ 'jshint:test' ],
+        tasks: [ ],
         options: {
           livereload: false
         }
@@ -519,7 +488,7 @@ module.exports = function ( grunt ) {
    * The `build` task gets your app ready to run for development and testing.
    */
   grunt.registerTask( 'build', [
-    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
+    'clean', 'html2js',  'coffeelint', 'coffee', 'less:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
     'copy:build_appjs', 'copy:build_vendorjs', 'index:build' 
   ]);
